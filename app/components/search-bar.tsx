@@ -5,49 +5,79 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa6";
 import Button from "./button";
 import { useState } from "react";
+import { FaFilter, FaSearch } from "react-icons/fa";
 
 const SearchBar = () => {
   const [isFullTime, setIsFullTime] = useState<boolean>(false);
+  const [isFilter, setIsFilter] = useState<boolean>(false);
+
   const handleFullTimeToggle = () => {
     setIsFullTime((prev) => !prev);
   };
+
+  const handleFilterToggle = () => {
+    setIsFilter((prev) => !prev);
+  };
   return (
-    <div className="bg-Neutral-0 dark:bg-Slate-900 rounded-md flex items-center h-20 px-6  ">
-      <div className="border-r border-Slate-900/10 dark:border-Slate-500/20  flex items-center flex-1 max-w-[450px] h-full ">
+    <div className="bg-Neutral-0 dark:bg-Slate-900 rounded-md flex items-center h-20 px-6">
+      <div className="border-r border-Slate-900/10 dark:border-Slate-500/20   flex items-center flex-1 max-w-[450px] max-md:max-w-full min-w-[150px] h-full pr-5 ">
         <Input
-          icon={<FiSearch className="text-Indigo-500 text-2xl" />}
+          icon={<FiSearch className="text-Indigo-500 text-2xl max-md:hidden" />}
           placeholder="Filter by title, companies, expertise…"
           name="search"
         />
       </div>
 
-      <div className=" flex  h-full">
-        <div className="border-r  border-Slate-900/10  dark:border-Slate-500/20 flex items-center flex-1 max-w-[300px] pl-[33px]">
-          <Input
-            icon={<FaLocationDot className="text-Indigo-500 text-2xl" />}
-            placeholder="Filter by location…"
-            name="location"
-          />
-        </div>
+      <div
+        onClick={() => setIsFilter(false)}
+        className={`h-full max-md:absolute max-md:inset-0 max-md:bg-Neutral-950/40 max-md:z-10 max-md:backdrop-blur-sm max-md:items-center max-md:justify-center    ${
+          isFilter ? "max-md:flex" : "max-md:hidden"
+        }`}
+      >
+        <div
+          className="flex items-center h-full bg-Neutral-0 dark:bg-Slate-900 max-md:h-fit max-md:flex-col max-md:items-start  max-md:rounded-md"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="border-r h-full  border-Slate-900/10 max-md:border-b max-md:border-r-0  dark:border-Slate-500/20 flex items-center flex-1   max-w-[300px] min-w-[150px] pl-[33px]  max-md:p-5 pr-5">
+            <Input
+              icon={<FaLocationDot className="text-Indigo-500 text-2xl" />}
+              placeholder="Filter by location…"
+              name="location"
+            />
+          </div>
 
-        <div className="flex gap-4 items-center pl-[33px]">
-          <button
-            className={`w-6 h-6 rounded-sm  cursor-pointer outline-none flex items-center justify-center ${
-              isFullTime
-                ? "bg-Indigo-500"
-                : "bg-Slate-900/10 dark:bg-Neutral-0/10"
-            }`}
-            onClick={handleFullTimeToggle}
-          >
-            {isFullTime && <FaCheck className="text-xl text-Neutral-0" />}
-          </button>
-          <span className="text-preset-4 text-Slate-900 dark:text-Neutral-0">
-            Full Time Only
-          </span>
+          <div className="flex gap-4 items-center pl-[33px] max-md:p-5 max-md:w-full">
+            <button
+              className={`w-6 h-6 rounded-sm  cursor-pointer outline-none flex items-center justify-center ${
+                isFullTime
+                  ? "bg-Indigo-500"
+                  : "bg-Slate-900/10 dark:bg-Neutral-0/10"
+              }`}
+              onClick={handleFullTimeToggle}
+            >
+              {isFullTime && <FaCheck className="text-xl text-Neutral-0" />}
+            </button>
+            <span className="text-preset-4 text-Slate-900 dark:text-Neutral-0">
+              Full Time Only
+            </span>
+          </div>
+
+          <div className="ml-8 max-md:ml-0 max-md:p-4  max-md:w-full max-md:grid max-md:grid-cols-1">
+            <Button text="Search" buttonStyle={1} />
+          </div>
         </div>
       </div>
 
-      <Button text="Search" buttonStyle={1} />
+      <button
+        className="hidden max-md:block ml-4 cursor-pointer"
+        onClick={handleFilterToggle}
+      >
+        <FaFilter className="dark:text-Neutral-0 text-Slate-500 text-2xl" />
+      </button>
+
+      <button className="hidden max-md:block ml-4 cursor-pointer rounded-md bg-Indigo-500 hover:bg-Indigo-300 p-3">
+        <FaSearch className="text-Neutral-0 text-xl" />
+      </button>
     </div>
   );
 };

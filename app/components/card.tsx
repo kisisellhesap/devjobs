@@ -3,7 +3,7 @@ import Logo from "./card-logo";
 
 const Card = () => {
   return (
-    <div className="px-8  bg-Neutral-0 dark:bg-Slate-900 rounded-md max-w-[350px]">
+    <div className="px-8  bg-Neutral-0 dark:bg-Slate-900 rounded-md  ">
       <div className="flex flex-col gap-6 relative bottom-6">
         <div className="relative w-[50px] h-[50px] rounded-2xl flex items-center justify-center bg-red-400">
           <Logo />

@@ -14,7 +14,7 @@ const Input = ({ icon, placeholder, name }: Input) => {
         type="text"
         name={name}
         placeholder={placeholder}
-        className="outline-none flex-1 pr-5  text-preset-4-regular text-Slate-900 dark:text-Neutral-0/50"
+        className="outline-none w-full  text-preset-4-regular text-Slate-900 dark:text-Neutral-0/50"
         autoComplete="off"
       />
     </div>

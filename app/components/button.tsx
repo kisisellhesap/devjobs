@@ -7,7 +7,7 @@ interface ButtonProps {
 const Button = ({ text, buttonStyle }: ButtonProps) => {
   return (
     <button
-      className={`px-8 py-3 rounded-md text-preset-4  cursor-pointer h-fit ml-8 outline-none ${
+      className={`px-8 py-3 rounded-md text-preset-4  cursor-pointer h-fit  outline-none ${
         buttonStyle === 1
           ? "bg-Indigo-500 hover:bg-Indigo-300 text-Neutral-0"
           : buttonStyle === 2
