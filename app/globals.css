@@ -1,26 +1,47 @@
 @import "tailwindcss";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-Neutral-950: #000000;
+  --color-Neutral-0: #ffffff;
+  --color-Slate-950: #121721;
+  --color-Slate-900: #19202d;
+  --color-Slate-500: #6e8098;
+  --color-Slate-300: #9daec2;
+  --color-Slate-100: #f4f6f8;
+  --color-Indigo-500: #5964e0;
+  --color-Indigo-300: #939bf4;
+
+  --font-family-kumbh: "Kumbh Sans", sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply bg-Slate-100 dark:bg-Slate-950 font-family-kumbh;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .text-preset-1 {
+    @apply text-[28px] leading-[125%] font-bold;
+  }
+  .text-preset-2 {
+    @apply text-[24px] leading-[125%] font-bold;
+  }
+  .text-preset-3 {
+    @apply text-[20px] leading-[125%] font-bold;
+  }
+  .text-preset-4 {
+    @apply text-[16px] leading-[125%] font-bold;
+  }
+  .text-preset-4-regular {
+    @apply text-[16px] leading-[162.5%] font-normal;
+  }
+  .text-preset-5 {
+    @apply text-[14px] leading-[120%] font-bold;
+  }
+
+  .content {
+    @apply w-full max-w-[1100px] mx-auto px-10;
+  }
 }
