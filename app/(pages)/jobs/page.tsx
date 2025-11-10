@@ -40,15 +40,13 @@ const Jobs = () => {
         return search && location && fullTime;
       });
 
-      console.log(filtered);
+      // console.log(filtered);
 
       setData(filtered);
       setLoading(false);
     };
     fetchData();
   }, [setData, filterForm]);
-
-  console.log(data);
 
   return (
     <div className="flex flex-col gap-14 content">
