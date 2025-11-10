@@ -1,15 +1,49 @@
+"use client";
+
 import Button from "@/app/components/button";
+import RequirementsContent from "@/app/components/requirements-content";
+import RoleContent from "@/app/components/role-content";
+import { db } from "@/app/firebase";
+import { Job } from "@/app/types";
+import { doc, getDoc } from "firebase/firestore";
 import Image from "next/image";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const Id = () => {
+  const { id } = useParams();
+  const [job, setJob] = useState<Job | null>(null);
+  const customLogo = String(job?.logo.replace(".", ""));
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const docRef = doc(db, "jobs", String(id));
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        setJob(docSnap.data() as Job);
+      } else {
+        console.log("No such document!");
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(job);
+
+  if (!job) return <p>Loading</p>;
   return (
     <div className="flex flex-col">
       <div className="flex flex-col mx-10">
         <header className="bg-Neutral-0 dark:bg-Slate-900 max-w-[730px] mx-auto w-full ">
-          <div className="flex gap-10 max-md:flex-col max-md:items-center -translate-y-6 ">
-            <div className=" relative w-[140px] h-[140px] max-md:w-[50px] max-md:h-[50px] max-md:rounded-md bg-[#E99210]">
+          <div className="flex gap-10 max-md:flex-col max-md:items-center max-md:-translate-y-6 ">
+            <div
+              className=" relative w-[140px] h-[140px] max-md:w-[100px] max-md:h-[100px] max-md:rounded-md"
+              style={{ backgroundColor: `${job.logoBackground}` }}
+            >
               <Image
-                src={"/assets/logos/scoot.svg"}
+                src={customLogo}
                 fill
                 className="object-contain p-8 max-md:p-2"
                 alt=""
@@ -19,10 +53,10 @@ const Id = () => {
             <div className="flex justify-between items-center max-md:flex-col max-md:gap-10 max-md:pr-0  flex-1 pr-10">
               <div className="flex flex-col gap-1.5">
                 <h4 className="text-preset-2 text-Slate-900 dark:text-Neutral-0">
-                  Scoot
+                  {job.company}
                 </h4>
                 <span className="text-preset-4-regular text-Slate-500">
-                  scoot.com
+                  {job.website}
                 </span>
               </div>
               <Button text="Company Site" buttonStyle={2} />
@@ -34,15 +68,15 @@ const Id = () => {
           <header className="flex items-center justify-between max-md:grid max-md:grid-cols-1 max-md:gap-10">
             <div className="flex flex-col gap-3">
               <p className="text-Slate-500 dark:text-Slate-300 text-preset-4-regular">
-                20h ago <span>Part Time</span>
+                {job.postedAt} | <span>{job.contract}</span>
               </p>
 
               <h3 className="text-Slate-900 dark:text-Neutral-0 hover:text-Slate-500 text-preset-1 ">
-                Haskell and PureScript Dev
+                {job.position}
               </h3>
 
               <span className="text-Indigo-500 text-preset-5">
-                United Kingdom
+                {job.location}
               </span>
             </div>
 
@@ -51,18 +85,7 @@ const Id = () => {
 
           <div className="flex flex-col gap-11">
             <p className="text-Slate-500  dark:text-Slate-300 text-preset-4-regular">
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-              Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi
-              neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium,
-              ligula sollicitudin laoreet viverra, tortor libero sodales leo,
-              eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo.
-              Suspendisse potenti. Sed egestas, ante et vulputate volutpat, eros
-              pede semper est, vitae luctus metus libero eu augue. Morbi purus
-              libero, faucibus adipiscing, commodo quis, gravida id, est. Sed
-              lectus. Praesent elementum hendrerit tortor. Sed semper lorem at
-              felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque
-              euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede
-              arcu, dapibus eu, fermentum et, dapibus sed, urna.
+              {job.description}
             </p>
 
             <div className="flex flex-col gap-6">
@@ -70,44 +93,13 @@ const Id = () => {
                 Requirements
               </h3>
               <p className="text-Slate-500 dark:text-Slate-300 text-preset-4-regular">
-                Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia,
-                magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae
-                facilisis libero dolor a purus. Sed vel lacus. Mauris nibh
-                felis, adipiscing varius, adipiscing in, lacinia vel, tellus.
-                Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc
-                tellus ante, mattis eget, gravida vitae, ultricies ac, leo.
-                Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.
+                {job.requirements.content}
               </p>
 
               <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-4">
-                  <div className="w-2 h-2 shrink-0 rounded-full bg-Indigo-500"></div>
-                  <p className="text-Slate-500 dark:text-Slate-300 text-preset-4-regular pl-5">
-                    Morbi interdum mollis sapien. Sed
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-2 h-2 shrink-0 rounded-full bg-Indigo-500"></div>
-                  <p className="text-Slate-500 dark:text-Slate-300 text-preset-4-regular pl-5">
-                    Phasellus lacinia magna a ullamcorper laoreet, lectus arcu
-                    pulvinar risus
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-2 h-2 shrink-0 rounded-full bg-Indigo-500"></div>
-                  <p className="text-Slate-500  dark:text-Slate-300 text-preset-4-regular pl-5">
-                    Mauris nibh felis, adipiscing varius, adipiscing in, lacinia
-                    vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris
-                    ut lectus.
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <div className="w-2 h-2 shrink-0 rounded-full bg-Indigo-500"></div>
-                  <p className="text-Slate-500 dark:text-Slate-300 text-preset-4-regular pl-5">
-                    Morbi interdum mollis sapien. Sed
-                  </p>
-                </div>
+                {job.requirements.items.map((item, i) => (
+                  <RequirementsContent key={i} article={item} />
+                ))}
               </div>
             </div>
 
@@ -116,47 +108,13 @@ const Id = () => {
                 What You Will Do
               </h3>
               <p className="text-Slate-500 dark:text-Slate-300 text-preset-4-regular">
-                Sed egestas, ante et vulputate volutpat, eros pede semper est,
-                vitae luctus metus libero eu augue. Morbi purus libero, faucibus
-                adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent
-                elementum hendrerit tortor. Sed semper lorem at felis.
-                Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod
-                dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu,
-                dapibus eu, fermentum et, dapibus sed, urna.
+                {job.role.content}
               </p>
 
               <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-4">
-                  <span className="text-Indigo-500 text-preset-4">1</span>
-                  <p className="text-Slate-500 dark:text-Slate-300 text-preset-4-regular pl-5">
-                    Morbi interdum mollis sapien. Sed
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-Indigo-500 text-preset-4">2</span>
-
-                  <p className="text-Slate-500 dark:text-Slate-300 text-preset-4-regular pl-5">
-                    Phasellus lacinia magna a ullamcorper laoreet, lectus arcu
-                    pulvinar risus
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-Indigo-500 text-preset-4">3</span>
-
-                  <p className="text-Slate-500  dark:text-Slate-300 text-preset-4-regular pl-5">
-                    Mauris nibh felis, adipiscing varius, adipiscing in, lacinia
-                    vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris
-                    ut lectus.
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <span className="text-Indigo-500 text-preset-4">4</span>
-
-                  <p className="text-Slate-500 dark:text-Slate-300 text-preset-4-regular pl-5">
-                    Morbi interdum mollis sapien. Sed
-                  </p>
-                </div>
+                {job.role.items.map((item, i) => (
+                  <RoleContent key={i} article={item} index={i} />
+                ))}
               </div>
             </div>
           </div>
@@ -166,10 +124,10 @@ const Id = () => {
         <div className=" max-w-[730px] mx-auto w-full flex items-center justify-between max-md:grid max-md:grid-cols-1">
           <div className="flex flex-col gap-2 max-md:hidden ">
             <h3 className="text-preset-3 text-Slate-900 dark:text-Neutral-0">
-              Senior Software Engineer
+              {job.position}
             </h3>
             <span className="text-preset-4-regular text-Slate-500">
-              So Digital Inc.
+              {job.company}
             </span>
           </div>
           <Button text="Apply Now" buttonStyle={1} />

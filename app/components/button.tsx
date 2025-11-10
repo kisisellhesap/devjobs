@@ -1,10 +1,11 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 
 interface ButtonProps {
   text: string;
   buttonStyle?: 1 | 2 | 3;
+  handleSearch?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
-const Button = ({ text, buttonStyle }: ButtonProps) => {
+const Button = ({ text, buttonStyle, handleSearch }: ButtonProps) => {
   return (
     <button
       className={`px-8 py-3 rounded-md text-preset-4  cursor-pointer h-fit  outline-none ${
@@ -14,6 +15,7 @@ const Button = ({ text, buttonStyle }: ButtonProps) => {
           ? "bg-Indigo-500/10 hover:bg-Indigo-500/35 text-Indigo-500"
           : "bg-Neutral-0/10 hover:bg-Neutral-0/25 text-Neutral-0"
       }`}
+      onClick={handleSearch}
     >
       {" "}
       {text}

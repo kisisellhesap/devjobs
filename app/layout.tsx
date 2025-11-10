@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import Header from "./components/header";
 import Bg from "./components/bg";
+import { GlobalProvider } from "./context/globalContext";
 
 const geistKumbh = Kumbh_Sans({
   variable: "--font-kumbh-sans",
@@ -24,13 +25,15 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistKumbh.variable}  antialiased`}>
-        <ThemeProvider>
-          <main className="flex flex-col gap-11">
-            <Header />
-            {children}
-          </main>
-          <Bg />
-        </ThemeProvider>
+        <GlobalProvider>
+          <ThemeProvider>
+            <main className="flex flex-col gap-11">
+              <Header />
+              {children}
+            </main>
+            <Bg />
+          </ThemeProvider>
+        </GlobalProvider>
       </body>
     </html>
   );

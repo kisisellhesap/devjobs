@@ -1,5 +1,5 @@
-interface Job {
-  id: string;
+export interface Job {
+  id: number;
   company: string;
   logo: string;
   logoBackground: string;
@@ -18,4 +18,10 @@ interface Job {
     content: string;
     items: string[];
   };
+}
+
+export interface FilterForm {
+  searchInput: string;
+  searchLocation: string;
+  isFullTime: boolean;
 }
