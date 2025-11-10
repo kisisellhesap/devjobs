@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistKumbh.variable}  antialiased`}>
         <GlobalProvider>
-          <ThemeProvider defaultTheme="system">
+          <ThemeProvider attribute={"class"} defaultTheme="light">
             <main className="flex flex-col gap-11">
               <Header />
               {children}
