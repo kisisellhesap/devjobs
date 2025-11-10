@@ -53,13 +53,21 @@ const Jobs = () => {
   return (
     <div className="flex flex-col gap-14 content">
       <SearchBar />
-      <div className="grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1  gap-[30px]">
+      <div
+        className={` ${
+          data && data?.length > 0
+            ? "grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1"
+            : "flex items-center justify-center min-h-100"
+        }  gap-[30px] `}
+      >
         {loading ? (
-          <p>loading</p>
+          <div className="loader"></div>
         ) : data && data.length > 0 ? (
           data?.map((job) => <Card key={job.id} job={job} />)
         ) : (
-          <p>burada iş yok</p>
+          <p className="p-5 bg-Neutral-0 dark:bg-Slate-900 rounded-md">
+            There is no job
+          </p>
         )}
       </div>
     </div>

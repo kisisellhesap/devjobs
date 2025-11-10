@@ -30,9 +30,12 @@ const Id = () => {
     fetchData();
   }, []);
 
-  console.log(job);
-
-  if (!job) return <p>Loading</p>;
+  if (!job)
+    return (
+      <div className="min-h-100 flex items-center justify-center">
+        <div className="loader"></div>
+      </div>
+    );
   return (
     <div className="flex flex-col">
       <div className="flex flex-col mx-10">
