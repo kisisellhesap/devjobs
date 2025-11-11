@@ -11,7 +11,6 @@ import { useSearchParams } from "next/navigation";
 const Jobs = () => {
   const { data, setData, filterForm, setFilterForm } = useGlobal();
   const [loading, setLoading] = useState<boolean>(true);
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,8 +42,6 @@ const Jobs = () => {
         return search && location && fullTime;
       });
 
-      // console.log(filtered);
-
       setData(filtered);
       setLoading(false);
     };
@@ -52,12 +49,17 @@ const Jobs = () => {
   }, [setData, filterForm]);
 
   useEffect(() => {
-    setFilterForm({
-      searchInput: searchParams.get("search") || "",
-      searchLocation: searchParams.get("location") || "",
-      isFullTime: searchParams.get("fullTime") === "true",
-    });
-  }, [searchParams]);
+    const sf = () => {
+      const searchParams = useSearchParams();
+
+      setFilterForm({
+        searchInput: searchParams.get("search") || "",
+        searchLocation: searchParams.get("location") || "",
+        isFullTime: searchParams.get("fullTime") === "true",
+      });
+      sf();
+    };
+  }, []);
   return (
     <div className="flex flex-col gap-14 content">
       <SearchBar />
