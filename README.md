@@ -94,8 +94,8 @@ Contributions are welcome! Feel free to open issues or submit pull requests for 
 
 This project is **private**, but you can adapt it for personal or commercial use.
 
-Live:https://bookmark-app-eta.vercel.app
+Live:https://devjobs-rho.vercel.app/jobs
 
-Github:https://github.com/kisisellhesap/bookmark-app
+Github:https://github.com/kisisellhesap/devjobs
 
 ![](jobs.gif)
