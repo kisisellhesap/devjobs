@@ -15,7 +15,7 @@ const Input = ({ icon, placeholder, name, handleChange, value }: Input) => {
       <input
         type="search"
         name={name}
-        defaultValue={value}
+        value={value ?? ""}
         placeholder={placeholder}
         className="outline-none w-full  text-preset-4-regular text-Slate-900 dark:text-Neutral-0/50"
         autoComplete="off"

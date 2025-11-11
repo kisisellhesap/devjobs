@@ -6,10 +6,12 @@ import SearchBar from "@/app/components/search-bar";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/app/firebase";
 import { Job } from "@/app/types";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const Jobs = () => {
-  const { data, setData, filterForm } = useGlobal();
+  const { data, setData, filterForm, setFilterForm } = useGlobal();
   const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -48,15 +50,24 @@ const Jobs = () => {
     fetchData();
   }, [setData, filterForm]);
 
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    setFilterForm({
+      searchInput: searchParams.get("search") || "",
+      searchLocation: searchParams.get("location") || "",
+      isFullTime: searchParams.get("fullTime") === "true",
+    });
+  }, [searchParams]);
   return (
     <div className="flex flex-col gap-14 content">
       <SearchBar />
       <div
         className={` ${
-          data && data?.length > 0
+          !loading && data && data.length > 0
             ? "grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1"
             : "flex items-center justify-center min-h-100"
-        }  gap-[30px] `}
+        }  gap-[30px]`}
       >
         {loading ? (
           <div className="loader"></div>
