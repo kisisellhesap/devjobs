@@ -1,12 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useGlobal } from "@/app/context/globalContext";
 import Card from "@/app/components/card";
 import SearchBar from "@/app/components/search-bar";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/app/firebase";
 import { Job } from "@/app/types";
-import { useSearchParams } from "next/navigation";
 
 const Jobs = () => {
   const { data, setData, filterForm, setFilterForm } = useGlobal();
@@ -42,27 +41,19 @@ const Jobs = () => {
         return search && location && fullTime;
       });
 
+      // console.log(filtered);
+
       setData(filtered);
       setLoading(false);
     };
     fetchData();
   }, [setData, filterForm]);
 
-  useEffect(() => {
-    const sf = () => {
-      const searchParams = useSearchParams();
-
-      setFilterForm({
-        searchInput: searchParams.get("search") || "",
-        searchLocation: searchParams.get("location") || "",
-        isFullTime: searchParams.get("fullTime") === "true",
-      });
-      sf();
-    };
-  }, []);
   return (
     <div className="flex flex-col gap-14 content">
-      <SearchBar />
+      <Suspense>
+        <SearchBar />
+      </Suspense>
       <div
         className={` ${
           !loading && data && data.length > 0

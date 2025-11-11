@@ -22,7 +22,12 @@ const SearchBar = () => {
 
     setSearchInput(urlSearch || "");
     setLocation(urlLocation || "");
-  }, [searchParams, setLocation, setSearchInput]);
+    setFilterForm({
+      searchInput: searchParams.get("search") || "",
+      searchLocation: searchParams.get("location") || "",
+      isFullTime: searchParams.get("fullTime") === "true",
+    });
+  }, [searchParams, setLocation, setSearchInput, setFilterForm]);
 
   const handleChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
