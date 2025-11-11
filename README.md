@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DevJobs
 
-## Getting Started
+DevJobs is a modern job listing web application built with **Next.js**, **React**, **Firebase**, and **Tailwind CSS**. It allows users to browse, search, and filter developer job postings efficiently. The app supports dark mode, persistent filters using `localStorage`, and responsive design for all screen sizes.
 
-First, run the development server:
+## Features
+
+- **Job Listings**: Browse all available job postings fetched from Firebase Firestore.
+- **Search & Filter**: Filter jobs by position, company, location, and contract type (full-time).
+- **Job Details**: View detailed information about each job, including company info, requirements, and responsibilities.
+- **Responsive UI**: Fully responsive layout for desktop, tablet, and mobile devices.
+- **Dark Mode**: Supports both light and dark themes.
+- **Persistent Filters**: Filters are saved in `localStorage` and persist between sessions.
+
+## Tech Stack
+
+- **Frontend**: Next.js (app router, client components), React, Tailwind CSS
+- **Backend**: Firebase Firestore
+- **State Management**: React Context API
+- **TypeScript**: Ensures type safety
+- **Other Libraries**: `react-icons`, `next-themes`
+
+## Project Structure
+
+```
+/app
+  /components
+    - Card.tsx
+    - SearchBar.tsx
+    - Button.tsx
+    - RequirementsContent.tsx
+    - RoleContent.tsx
+  /context
+    - globalContext.tsx
+  /firebase.ts
+  /types.ts
+  /jobs
+    - page.tsx        # Job listing page
+    - [id].tsx        # Job detail page
+```
+
+- **Global Context**: Stores job data and filter states across the app.
+- **Firebase Integration**: Fetches jobs and individual job details from Firestore.
+- **Dynamic Routing**: Each job has a unique page accessible via its ID.
+
+## Installation
+
+1. Clone the repository:
+
+```bash
+git clone <your-repo-url>
+cd devjobs
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Set up Firebase:
+
+   - Create a Firebase project.
+   - Add Firestore database.
+   - Update `firebase.ts` with your Firebase configuration.
+
+4. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The app should now be running at `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Use the search bar to filter jobs by **position**, **company**, **location**, or **full-time status**.
+- Click on a job card to view its **detailed page** with requirements and role responsibilities.
+- Filters persist in local storage, so your preferences are saved between sessions.
 
-## Learn More
+## Scripts
 
-To learn more about Next.js, take a look at the following resources:
+| Command         | Description              |
+| --------------- | ------------------------ |
+| `npm run dev`   | Start development server |
+| `npm run build` | Build production app     |
+| `npm run start` | Start production server  |
+| `npm run lint`  | Run ESLint               |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Contributions are welcome! Feel free to open issues or submit pull requests for improvements.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is **private**, but you can adapt it for personal or commercial use.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Live:https://bookmark-app-eta.vercel.app
+
+Github:https://github.com/kisisellhesap/bookmark-app
+
+![](jobs.gif)

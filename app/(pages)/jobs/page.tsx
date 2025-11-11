@@ -6,11 +6,12 @@ import SearchBar from "@/app/components/search-bar";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/app/firebase";
 import { Job } from "@/app/types";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const Jobs = () => {
   const { data, setData, filterForm, setFilterForm } = useGlobal();
   const [loading, setLoading] = useState<boolean>(true);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,8 +50,6 @@ const Jobs = () => {
     };
     fetchData();
   }, [setData, filterForm]);
-
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     setFilterForm({
